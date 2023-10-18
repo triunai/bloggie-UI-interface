@@ -1,3 +1,5 @@
+import { Categories } from "../../category/models/categories.model";
+
 export interface BlogPost{
   id: string,
   title: string,
@@ -8,4 +10,7 @@ export interface BlogPost{
   author: string,
   publishedDate: Date,
   isVisible: boolean,
+
+  // add categories here to link models like you did for api
+  categories: Categories[];
 }

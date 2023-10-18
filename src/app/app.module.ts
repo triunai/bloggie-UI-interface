@@ -35,7 +35,7 @@ import { AddBlogpostComponent } from './features/blog-post/add-blogpost/add-blog
     FormsModule,
     RouterModule,
     HttpClientModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
   ],
   providers: [
     CategoryService,

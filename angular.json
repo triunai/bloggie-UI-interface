@@ -38,8 +38,7 @@
               "node_modules/marked/marked.min.js",
               "node_modules/prismjs/components/prism-csharp.min.js",
               "node_modules/prismjs/components/prism-css.min.js",
-              "node_modules/emoji-toolkit/lib/js/joypixels.min.js"
-
+              "src/assets/joypixels.min.js"
             ]
           },
           "configurations": {

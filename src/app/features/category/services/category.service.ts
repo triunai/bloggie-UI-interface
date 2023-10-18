@@ -25,7 +25,7 @@ export class CategoryService {
   getAllCategories(): Observable<Categories[]> {
     return this.http.get<Categories[]>(`${environment.apiBaseUrl}/api/categories`)
       .pipe(
-        tap(() => console.log('Successfully fetched categories!')),
+        tap(() => console.log('Successfully fetched categories from category service!!')),
         catchError(error => {
           console.error('Error fetching categories:', error);
           return of([]); // return an empty array if there's an error

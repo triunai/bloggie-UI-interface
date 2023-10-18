@@ -21,12 +21,14 @@ export class BlogPostService {
   }
 
   // use ur logic, why in the hell would a getAll method not return an array of the datatype of the apiResponse
+
+  // since you connected the tables in your api, make necessary changes to your model first
   getAllBlogposts(): Observable<BlogPost[]>{
     return this.http.get<BlogPost[]>(`${environment.apiBaseUrl}/api/blogpost`)
     .pipe(
-      tap(() => console.log('Successfully fetched categories!')),
+      tap((data) => console.log('Successfully fetched all blogposts!!'+data)),
       catchError(err => {
-        console.error('Error fetching categories!', err.message, 'Status Code:', err.status);
+        console.error('Error fetching blogposts!', err.message, 'Status Code:', err.status);
 
         return of([]);
       })

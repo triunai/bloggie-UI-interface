@@ -21,6 +21,7 @@
     "emoji-toolkit": "^7.0.0",
     "ngx-markdown": "^16.0.0",
     "rxjs": "~7.8.0",
+    "ts-emoji": "^1.0.1",
     "tslib": "^2.6.2",
     "zone.js": "~0.13.0"
   },

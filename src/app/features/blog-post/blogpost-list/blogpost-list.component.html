@@ -13,6 +13,7 @@
           <th>Title</th>
           <th>Short Description</th>
           <th>Author</th>
+          <th>Categories</th>
         </tr>
       </thead>
       <tbody>
@@ -20,6 +21,11 @@
           <td class="text-center">{{blogpost.title}}</td>
           <td class="text-center">{{blogpost.shortDescription}}</td>
           <td class="text-center">{{blogpost.author}}</td>
+          <td class="text-center">
+            <span *ngFor="let category of blogpost.categories">
+              <span class="badge bg-info" me-2>{{category.name}}</span>
+            </span>
+          </td>
         </tr>
       </tbody>
     </table>
