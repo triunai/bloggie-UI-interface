@@ -34,4 +34,8 @@ export class BlogPostService {
       })
     );
   }
+
+  getBlogpostsById(id: string): Observable<BlogPost>{
+    return this.http.get<BlogPost>(`${environment.apiBaseUrl}/api/blogpost/${id}`);
+  }
 }

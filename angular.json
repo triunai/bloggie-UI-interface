@@ -37,8 +37,7 @@
               "src/assets/script.js",
               "node_modules/marked/marked.min.js",
               "node_modules/prismjs/components/prism-csharp.min.js",
-              "node_modules/prismjs/components/prism-css.min.js",
-              "src/assets/joypixels.min.js"
+              "node_modules/prismjs/components/prism-css.min.js"
             ]
           },
           "configurations": {
