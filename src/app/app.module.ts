@@ -18,6 +18,7 @@ import { BlogpostListComponent } from './features/blog-post/blogpost-list/blogpo
 import { BlogPostService } from './features/blog-post/services/blog-post.service';
 import { AddBlogpostComponent } from './features/blog-post/add-blogpost/add-blogpost.component';
 import { EditBlogpostComponent } from './features/blog-post/edit-blogpost/edit-blogpost.component';
+import { ImageSelectorComponent } from './features/shared/components/image-selector/image-selector.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EditBlogpostComponent } from './features/blog-post/edit-blogpost/edit-b
     EditCategoryComponent,
     BlogpostListComponent,
     AddBlogpostComponent,
-    EditBlogpostComponent
+    EditBlogpostComponent,
+    ImageSelectorComponent
   ],
   imports: [
     BrowserModule,

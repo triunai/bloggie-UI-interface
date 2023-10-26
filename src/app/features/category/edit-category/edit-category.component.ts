@@ -13,9 +13,11 @@ export class EditCategoryComponent implements OnInit,OnDestroy{
 
   //define it up here
   id: string | null = null;
-  paramsSubscription?: Subscription; // <-- For routing purposes only
   category?: Categories;
+
+  paramsSubscription?: Subscription; // <-- For routing purposes only
   editCategorySubscription?: Subscription;
+  deleteCategorySubscription?: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -40,8 +42,8 @@ export class EditCategoryComponent implements OnInit,OnDestroy{
         next: (data) =>{
           this.router.navigateByUrl('/admin/categories');
         },
-        error: () => {
-          console.log("unable to update data, check params or api")
+        error: (error) => {
+          console.error("unable to update data, check params or api"+error.message)
         }
       })
     }
@@ -69,7 +71,7 @@ export class EditCategoryComponent implements OnInit,OnDestroy{
   onDelete(){
     // add from service
     if(this.id){
-        this.categoryService.deleteCategory(this.id).subscribe({
+        this.deleteCategorySubscription = this.categoryService.deleteCategory(this.id).subscribe({
           next: (responseFromApi) =>{
             console.log(`This is the deleted category ${responseFromApi.id}, ${responseFromApi.name}, ${responseFromApi.urlHandle} `);
             this.router.navigateByUrl('/admin/categories');
@@ -84,5 +86,6 @@ export class EditCategoryComponent implements OnInit,OnDestroy{
   ngOnDestroy(): void {
     this.paramsSubscription?.unsubscribe;
     this.editCategorySubscription?.unsubscribe;
+    this.deleteCategorySubscription?.unsubscribe;
   }
 }
