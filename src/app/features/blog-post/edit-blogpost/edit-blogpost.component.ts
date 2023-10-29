@@ -25,6 +25,7 @@ export class EditBlogpostComponent implements OnInit,OnDestroy {
   model?: BlogPost; // <-- Acts as model for component, perform your business logic here!
   modelContent: string = '';
   selectedCategories?: string[];
+  imageSelectorVisibilityFlag = false;
 
 
   constructor(
@@ -108,7 +109,7 @@ export class EditBlogpostComponent implements OnInit,OnDestroy {
   }
 
   getParsedMarkdown(): string {  // <-- specify the return type
-    console.log("parsedMarkdown: Current modelContent", this.modelContent);
+    console.log("parsedMarkdown: Current modelContent"+this.modelContent);
 
     if (!this.modelContent || typeof this.modelContent !== 'string') {
       console.error("parsedMarkdown: Didn't enter main method");
@@ -211,6 +212,13 @@ export class EditBlogpostComponent implements OnInit,OnDestroy {
     }
   }
 
+  openImageSelector(){
+    this.imageSelectorVisibilityFlag = true;
+  }
+
+  closeModal(){
+    this.imageSelectorVisibilityFlag = false;
+  }
   ngOnDestroy(): void {
     this.RouteSubscription?.unsubscribe();
     this.editBlogpostSubscription?.unsubscribe();

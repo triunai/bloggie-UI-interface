@@ -26,8 +26,8 @@ export class BlogpostListComponent implements OnInit {
 
 
 
-  fetchBlogposts() {
-    this.blogposts$ = this.blogpostService.getAllBlogposts(); 
+  private fetchBlogposts() {
+    this.blogposts$ = this.blogpostService.getAllBlogposts();
   }
 
 

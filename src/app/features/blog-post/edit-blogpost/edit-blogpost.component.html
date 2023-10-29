@@ -4,7 +4,7 @@
   <ng-container *ngIf="model">
     <form #form="ngForm" (ngSubmit)="onFormSubmit()">
       <div class="mt-3">
-        <label for="title" class="form-label">Title</label>
+        <label for="title" class="form-label"><h5>Title</h5></label>
         <input
           type="text"
           id="title"
@@ -15,7 +15,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="urlHandle" class="form-label">Url Handle</label>
+        <label for="urlHandle" class="form-label"><h5>Url Handle</h5></label>
         <input
           type="text"
           id="urlHandle"
@@ -27,7 +27,7 @@
 
       <div class="mt-3">
         <label for="shortDescription" class="form-label"
-          >Short Description(Summary)</label
+          ><h5>Short Description(Summary)</h5></label
         >
         <input
           type="text"
@@ -39,9 +39,8 @@
       </div>
 
       <div class="mt-3">
-        <label for="featuredImageUrl" class="form-label"
-          >Featured Image Url</label
-        >
+        <label for="featuredImageUrl" class="form-label"><h5>Featured Image Url</h5>
+        </label>
 
         <ng-container *ngIf="model.featuredImageUrl !== ''">
           <!-- checks if the model attribute (featured image url) is empty or not, only renders when visible -->
@@ -55,18 +54,22 @@
             />
           </div>
         </ng-container>
+        <div class="container d-flex">
+          <input
+            type="text"
+            id="featuredImageUrl"
+            name="featuredImageUrl"
+            class="form-control"
+            [(ngModel)]="model.featuredImageUrl"
+          />
+          <button type="button" class="btn btn-dark d-flex justify-content-center ms" (click)="openImageSelector()">Select Image</button>
+        </div>
 
-        <input
-          type="text"
-          id="featuredImageUrl"
-          name="featuredImageUrl"
-          class="form-control"
-          [(ngModel)]="model.featuredImageUrl"
-        />
+
       </div>
-
+      <div class="mt-3"></div>
+      <label for="content" class="form-label"><h4 class="ms-2">Content</h4></label>
       <div class="mt-3">
-        <label for="content" class="form-label">Content</label>
         <div class="d-flex flex-row">
           <!-- Where you write content -->
           <div class="col-6 p-2">
@@ -78,7 +81,7 @@
               [(ngModel)]="model.content"
             ></textarea>
           </div>
-          <!-- Live preview goes here -->
+          <!-- Livv preview goes here -->
           <div class="col-6 p-2" style="max-height: 350px; overflow-y: scroll">
 
             <markdown [innerHTML]="getParsedMarkdown" [data]="model.content">
@@ -89,7 +92,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="publishedDate" class="form-label">Published Date</label>
+        <label for="publishedDate" class="form-label"><h5>Published Date</h5></label>
         <input
           type="date"
           id="publishedDate"
@@ -101,7 +104,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="author" class="form-label">Author</label>
+        <label for="author" class="form-label"><h5>Author</h5></label>
         <input
           type="text"
           id="author"
@@ -123,7 +126,7 @@
       </div>
 
       <div class="mt-3">
-          <label for="categories" class="form-label">Categories</label>
+          <label for="categories" class="form-label"><h5>Categories</h5></label>
           <ng-container *ngIf="categories$ | async as categories">
           <!-- <div class="dropdown">
               <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -154,7 +157,10 @@
   </ng-container>
 </div>
 
+<div class="images-container-modal" [ngClass]="{'d-block': imageSelectorVisibilityFlag, 'd-none': !imageSelectorVisibilityFlag}">
+  <button type="button" class="btn btn-dark" style="position: fixed; top: 10px; right: 10px;" (click)="closeModal()">X</button>
+  <app-image-selector>
 
-<app-image-selector>
+  </app-image-selector>
+</div>
 
-</app-image-selector>
