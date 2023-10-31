@@ -1,0 +1,42 @@
+
+.readMore:hover{
+  -webkit-box-shadow:0px 0px 105px 14px rgba(27,8,97,0.9);
+  -moz-box-shadow: 0px 0px 105px 14px rgba(27,8,97,0.9);
+  box-shadow: 0px 0px 105px 14px rgba(27,8,97,0.9);
+  z-index: 1;
+}
+
+.jumbotron {
+  backdrop-filter: blur(6px) saturate(102%);
+  -webkit-backdrop-filter: blur(6px) saturate(102%);
+  background-color: rgba(48, 111, 134, 0.45);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+  transition: box-shadow 0.3s ease-in;  /* Transition property adjusted here */
+  margin-top: 0;
+}
+
+.jumbotron:hover {
+  backdrop-filter: blur(6px) saturate(102%);
+  -webkit-backdrop-filter: blur(6px) saturate(102%);
+  background-color: rgba(48, 111, 134, 0.45);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+  -webkit-box-shadow:0px 0px 105px 10px rgba(0,128,128,0.9);
+  -moz-box-shadow: 0px 0px 105px 10px rgba(0,128,128,0.9);
+  box-shadow: 0px 0px 105px 10px rgba(0,128,128,0.9);
+}
+
+body{
+   margin-top: 0;
+   background-image: linear-gradient(to right bottom, #130923, #110c24, #0f0e25, #0e1025, #0c1226, #122239, #16334d, #194560, #1b6f8c, #1e9bb4, #34cbd6, #5ffbf1);
+
+}
+
+
+
+
+
+
+
+

@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { BlogPost } from '../models/blog-post.model';
 import { Categories } from '../../category/models/categories.model';
 import { UpdateBlogPostModel } from '../models/update-blog-post.model';
+import { ImageService } from '../../shared/components/image-selector/image.service';
 
 @Component({
   selector: 'app-edit-blogpost',
@@ -20,6 +21,7 @@ export class EditBlogpostComponent implements OnInit,OnDestroy {
   categories$?: Observable<Categories[]>;
   getBlogpost?: Subscription;
   deleteBlogpost?: Subscription;
+  imageSelectSubscription$?: Subscription;
 
   id: string | null = null; // Declared here for routing logic
   model?: BlogPost; // <-- Acts as model for component, perform your business logic here!
@@ -32,14 +34,15 @@ export class EditBlogpostComponent implements OnInit,OnDestroy {
     private activatedRoute: ActivatedRoute,
     private BlogPostService: BlogPostService,
     private CategoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private imageService: ImageService
   ){}
 
   ngOnInit(): void {
     this.getIdFromRoute();
     this.modelContent = this.model?.content || '';
-    console.log("ngOnInit: Initialized modelContent", this.modelContent);
-    this.getParsedMarkdown();
+    // console.log("ngOnInit: Initialized modelContent", this.modelContent);
+    // this.getParsedMarkdown();
   }
 
   convertToEmoji(text: string): string {
@@ -155,13 +158,27 @@ export class EditBlogpostComponent implements OnInit,OnDestroy {
             next: (posts) => {
               this.model = posts;
               this.selectedCategories = posts.categories.map( category => category.id ); // to preselect categories and initialize
-              console.info('Blog post from route:', this.model);
             },
             error: (err) => {
               console.error("Couldnt get the right id!")
             }
           })
         }
+
+        // for initialising image selector
+
+        this.imageSelectSubscription$ = this.imageService.onSelectImage().subscribe({
+          // Do something with the new image
+          next: (response) => {
+            if(this.model){
+              this.model.featuredImageUrl = response.fileUrl;
+              this.imageSelectorVisibilityFlag = false; // closes it for you
+            }
+          },
+          error: (err) => {
+            console.error("Something worng happened "+err)
+          }
+        });
       },
       error: (err: any) => {
         console.error("unable to return route from id!, check");
@@ -224,6 +241,7 @@ export class EditBlogpostComponent implements OnInit,OnDestroy {
     this.editBlogpostSubscription?.unsubscribe();
     this.getBlogpost?.unsubscribe();
     this.deleteBlogpost?.unsubscribe();
+    this.imageSelectSubscription$?.unsubscribe();
   }
 
 }

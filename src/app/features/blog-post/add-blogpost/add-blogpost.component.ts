@@ -6,6 +6,7 @@ import { AddBlogPostModel } from '../models/add-blog-post.model';
 import { CategoryService } from '../../category/services/category.service';
 import { Categories } from '../../category/models/categories.model';
 import { BlogPost } from '../models/blog-post.model';
+import { ImageService } from '../../shared/components/image-selector/image.service';
 
 
 
@@ -14,16 +15,18 @@ import { BlogPost } from '../models/blog-post.model';
   templateUrl: './add-blogpost.component.html',
   styleUrls: ['./add-blogpost.component.scss']
 })
-export class AddBlogpostComponent implements OnInit {
+export class AddBlogpostComponent implements OnInit,OnDestroy {
 
   model: AddBlogPostModel;
   categories$?: Observable<Categories[]>  // <-- Declare Subscription variable
-
+  imageSelectorVisibilityFlag?: boolean = false;
+  imageSelectSubscription$?: Subscription;
 
   constructor(
     private blogpostService: BlogPostService,
     private router: Router,
     private categoryService: CategoryService,
+    private imageService: ImageService
   ){
     this.model = {
       title:'',
@@ -40,6 +43,20 @@ export class AddBlogpostComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchCategories();
+    // for initialising image selector
+
+    this.imageSelectSubscription$ = this.imageService.onSelectImage().subscribe({
+          // Do something with the new image
+          next: (response) => {
+            if(this.model){
+              this.model.featuredImageUrl = response.fileUrl;
+              this.closeImageSelector(); // closes it for you
+            }
+          },
+          error: (err) => {
+            console.error("Something worng happened "+err)
+          }
+        });
   }
 
   onFormSubmit(){
@@ -62,5 +79,16 @@ export class AddBlogpostComponent implements OnInit {
     this.categories$ = this.categoryService.getAllCategories();
   }
 
+  openImageSelector(){
+    this.imageSelectorVisibilityFlag = true;
+  }
+
+  closeImageSelector(){
+    this.imageSelectorVisibilityFlag = false;
+  }
+
+  ngOnDestroy(): void {
+    this.imageSelectSubscription$?.unsubscribe();
+  }
 }
 

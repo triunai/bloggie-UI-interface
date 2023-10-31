@@ -37,10 +37,10 @@ export class ImageService {
   // returns nothing because its just changing the value of the behaviour subject
   selectImage(image: BlogImageModel){
     // changes the value of the current behaviour to the image being passed in the request, will come from controller to here
-    this.selectedImage.next(image)
-  }
+    this.selectedImage.next(image);
+    }
 
   onSelectImage(): Observable<BlogImageModel>{
-    return this.selectedImage.asObservable()
+    return this.selectedImage.asObservable() // observer becomes the observable itself!
   }
 }
