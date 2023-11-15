@@ -43,7 +43,7 @@ export class EditCategoryComponent implements OnInit,OnDestroy{
           this.router.navigateByUrl('/admin/categories');
         },
         error: (error) => {
-          console.error("unable to update data, check params or api"+error.message)
+          console.error("unable to update data, check params or api: "+error.message)
         }
       })
     }
@@ -76,8 +76,8 @@ export class EditCategoryComponent implements OnInit,OnDestroy{
             console.log(`This is the deleted category ${responseFromApi.id}, ${responseFromApi.name}, ${responseFromApi.urlHandle} `);
             this.router.navigateByUrl('/admin/categories');
           },
-          error: () =>{
-            console.log("Couldnt be deleted, maybe check id")
+          error: (error) =>{
+            console.error("Couldnt be deleted, maybe check id: "+error.message)
           }
         });
     }
