@@ -28,6 +28,7 @@ export class EditBlogpostComponent implements OnInit,OnDestroy {
   modelContent: string = '';
   selectedCategories?: string[];
   imageSelectorVisibilityFlag = false;
+  paramsSubscription?:  Subscription;
 
 
   constructor(
@@ -45,104 +46,104 @@ export class EditBlogpostComponent implements OnInit,OnDestroy {
     // this.getParsedMarkdown();
   }
 
-  convertToEmoji(text: string): string {
-    const emojiMap: { [key: string]: string | undefined } = {
-      ':heart:': '❤️',
-      ':smile:': '😄',
-      ':laugh:': '😂',
-      ':wink:': '😉',
-      ':sad:': '😔',
-      ':angry:': '😡',
-      ':surprise:': '😲',
-      ':thumbs_up:': '👍',
-      ':thumbs_down:': '👎',
-      ':clap:': '👏',
-      ':wave:': '👋',
-      ':100:': '💯',
-      ':fire:': '🔥',
-      ':star:': '⭐',
-      ':cake:': '🍰',
-      ':gift:': '🎁',
-      ':eyes:': '👀',
-      ':sunglasses:': '😎',
-      ':money_mouth:': '🤑',
-      ':thinking:': '🤔',
-      ':facepalm:': '🤦',
-      ':rocket:': '🚀',
-      ':earth:': '🌍',
-      ':sun:': '☀️',
-      ':moon:': '🌕',
-      ':rainbow:': '🌈',
-      ':coffee:': '☕',
-      ':pizza:': '🍕',
-      ':apple:': '🍎',
-      ':orange:': '🍊',
-      ':grapes:': '🍇',
-      ':watermelon:': '🍉',
-      ':muscle:': '💪',
-      ':book:': '📚',
-      ':pencil:': '✏️',
-      ':camera:': '📷',
-      ':music:': '🎵',
-      ':trophy:': '🏆',
-      ':alarm_clock:': '⏰',
-      ':airplane:': '✈️',
-      ':email:': '📧',
-      ':tv:': '📺',
-      ':phone:': '📱',
-      ':computer:': '💻',
-      ':bulb:': '💡',
-      ':zipper_mouth:': '🤐',
-      ':robot:': '🤖',
-      ':unicorn:': '🦄',
-      ':tada:': '🎉',
-      ':confetti:': '🎊',
-      ':balloon:': '🎈',
-      ':gift_heart:': '💝',
-      ':question:': '❓',
-      ':exclamation:': '❗',
-      ':zzz:': '💤',
-      ':footprints:': '👣',
-      ':peace:': '✌️',
-      ':victory:': '✌️',
-      ':crossed_fingers:': '🤞',
-      ':fist:': '✊'
-    };
-    return text.replace(/:(\w+):/g, (match, p1) => emojiMap[match] || `:${p1}:`);
-  }
+  // convertToEmoji(text: string): string {
+  //   const emojiMap: { [key: string]: string | undefined } = {
+  //     ':heart:': '❤️',
+  //     ':smile:': '😄',
+  //     ':laugh:': '😂',
+  //     ':wink:': '😉',
+  //     ':sad:': '😔',
+  //     ':angry:': '😡',
+  //     ':surprise:': '😲',
+  //     ':thumbs_up:': '👍',
+  //     ':thumbs_down:': '👎',
+  //     ':clap:': '👏',
+  //     ':wave:': '👋',
+  //     ':100:': '💯',
+  //     ':fire:': '🔥',
+  //     ':star:': '⭐',
+  //     ':cake:': '🍰',
+  //     ':gift:': '🎁',
+  //     ':eyes:': '👀',
+  //     ':sunglasses:': '😎',
+  //     ':money_mouth:': '🤑',
+  //     ':thinking:': '🤔',
+  //     ':facepalm:': '🤦',
+  //     ':rocket:': '🚀',
+  //     ':earth:': '🌍',
+  //     ':sun:': '☀️',
+  //     ':moon:': '🌕',
+  //     ':rainbow:': '🌈',
+  //     ':coffee:': '☕',
+  //     ':pizza:': '🍕',
+  //     ':apple:': '🍎',
+  //     ':orange:': '🍊',
+  //     ':grapes:': '🍇',
+  //     ':watermelon:': '🍉',
+  //     ':muscle:': '💪',
+  //     ':book:': '📚',
+  //     ':pencil:': '✏️',
+  //     ':camera:': '📷',
+  //     ':music:': '🎵',
+  //     ':trophy:': '🏆',
+  //     ':alarm_clock:': '⏰',
+  //     ':airplane:': '✈️',
+  //     ':email:': '📧',
+  //     ':tv:': '📺',
+  //     ':phone:': '📱',
+  //     ':computer:': '💻',
+  //     ':bulb:': '💡',
+  //     ':zipper_mouth:': '🤐',
+  //     ':robot:': '🤖',
+  //     ':unicorn:': '🦄',
+  //     ':tada:': '🎉',
+  //     ':confetti:': '🎊',
+  //     ':balloon:': '🎈',
+  //     ':gift_heart:': '💝',
+  //     ':question:': '❓',
+  //     ':exclamation:': '❗',
+  //     ':zzz:': '💤',
+  //     ':footprints:': '👣',
+  //     ':peace:': '✌️',
+  //     ':victory:': '✌️',
+  //     ':crossed_fingers:': '🤞',
+  //     ':fist:': '✊'
+  //   };
+  //   return text.replace(/:(\w+):/g, (match, p1) => emojiMap[match] || `:${p1}:`);
+  // }
 
-  getParsedMarkdown(): string {  // <-- specify the return type
-    console.log("parsedMarkdown: Current modelContent"+this.modelContent);
+  // getParsedMarkdown(): string {  // <-- specify the return type
+  //   console.log("parsedMarkdown: Current modelContent"+this.modelContent);
 
-    if (!this.modelContent || typeof this.modelContent !== 'string') {
-      console.error("parsedMarkdown: Didn't enter main method");
-      return '';
-    }
+  //   if (!this.modelContent || typeof this.modelContent !== 'string') {
+  //     console.error("parsedMarkdown: Didn't enter main method");
+  //     return '';
+  //   }
 
-    if (!this.id) {
-      console.error("parsedMarkdown: ID is not available");
-      return '';
-    }
+  //   if (!this.id) {
+  //     console.error("parsedMarkdown: ID is not available");
+  //     return '';
+  //   }
 
-    this.getBlogpost = this.BlogPostService.getBlogpostsById(this.id).subscribe({
-      next: (blogpost) => {
-        this.model = blogpost;
+  //   this.getBlogpost = this.BlogPostService.getBlogpostsById(this.id).subscribe({
+  //     next: (blogpost) => {
+  //       this.model = blogpost;
 
-        if (!this.model) {
-          console.error("parsedMarkdown: Model is not available");
-        }
+  //       if (!this.model) {
+  //         console.error("parsedMarkdown: Model is not available");
+  //       }
 
-        this.modelContent = this.model.content;
-        const convertedText = this.convertToEmoji(this.modelContent);
-        console.log("parsedMarkdown: Converted Text", convertedText, "Model Content", this.modelContent);
-      },
-      error: (err: any) => {
-        console.error("parsedMarkdown: Try later lil bro");
-      }
-    });
-    console.log("still not enterig main method");
-    return '';  // <-- Added a default return value
-  }
+  //       this.modelContent = this.model.content;
+  //       const convertedText = this.convertToEmoji(this.modelContent);
+  //       console.log("parsedMarkdown: Converted Text", convertedText, "Model Content", this.modelContent);
+  //     },
+  //     error: (err: any) => {
+  //       console.error("parsedMarkdown: Try later lil bro");
+  //     }
+  //   });
+  //   console.log("still not enterig main method");
+  //   return '';  // <-- Added a default return value
+  // }
 
 
   getIdFromRoute(){
