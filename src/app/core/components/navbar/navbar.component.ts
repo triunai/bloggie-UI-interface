@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/features/auth/models/user.model';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 
@@ -11,7 +13,9 @@ export class NavbarComponent implements OnInit {
 
   user? : User;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router) {
 
   }
 
@@ -27,10 +31,13 @@ export class NavbarComponent implements OnInit {
 
       }
     });
+
+    this.user = this.authService.getUser();
   }
 
-  onLogout(){
-
+  onLogout(): void{
+    this.authService.logout();
+    this.router.navigateByUrl('/'); // <--- Routes back to the homepage
   }
 
 
