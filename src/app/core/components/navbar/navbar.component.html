@@ -1,9 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="https://library.livecanvas.com/sections/">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Bananas.svg/1024px-Bananas.svg.png" width="48" height="48" class="align-middle me-1" alt="My Website">
-      Bloggie</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Bananas.svg/1024px-Bananas.svg.png"
+        width="48"
+        height="48"
+        class="align-middle me-1"
+        alt="My Website"
+      />
+      Bloggie</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -11,37 +26,51 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Admin
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]="['admin/categories']">Category</a></li>
-            <li><a class="dropdown-divider"></a></li>
-            <li><a class="dropdown-item" [routerLink]="['admin/blogposts']">Blog Posts</a></li>
-            <!-- <li class="border-bottom"><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
-          </ul>
-        </li>
+
+        <ng-container *ngIf="user !== undefined && user?.roles?.includes('Writer')">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              >Admin</a
+            >
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" [routerLink]="['admin/categories']"
+                  >Category</a
+                >
+              </li>
+              <li><a class="dropdown-divider"></a></li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['admin/blogposts']"
+                  >Blog Posts</a
+                >
+              </li>
+              <!-- <li class="border-bottom"><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+            </ul>
+          </li>
+        </ng-container>
       </ul>
 
       <div class="d-flex">
         <!-- Remember to use template for the else statements -->
-        <ng-container *ngIf="user === undefined;else showLogout">
+        <ng-container *ngIf="user === undefined; else showLogout">
           <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
         </ng-container>
 
         <ng-template #showLogout>
           <div class="d-flex align-items-center">
-            <span style="color: azure;">{{user?.email}}</span>
-            <button class="btn btn-danger ms-3" (click)="onLogout()">Logout</button>
+            <span style="color: azure">{{ user?.email }}</span>
+            <button class="btn btn-danger ms-3" (click)="onLogout()">
+              Logout
+            </button>
           </div>
-
         </ng-template>
-
-
       </div>
-
     </div>
   </div>
 </nav>
