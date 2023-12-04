@@ -32,6 +32,15 @@ export class LoginComponent {
         // set auth cookie
         this.cookieService.set('Authorization', `Bearer ${response.token}`,
         undefined, '/', undefined, true, 'Strict');
+
+
+        // set user using service
+        this.authService.setUser({
+          email: response.email,
+          roles: response.roles,
+        });
+
+        // redirect back to homepage
         this.router.navigateByUrl('/');
       },
       error: (err) =>{

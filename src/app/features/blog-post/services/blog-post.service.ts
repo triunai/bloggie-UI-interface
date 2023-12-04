@@ -27,7 +27,6 @@ export class BlogPostService {
   getAllBlogposts(): Observable<BlogPost[]>{
     return this.http.get<BlogPost[]>(`${environment.apiBaseUrl}/api/blogpost`)
     .pipe(
-      tap((data) => console.log('Successfully fetched all blogposts!!'+data)),
       catchError(err => {
         console.error('Error fetching blogposts!', err.message, 'Status Code:', err.status);
 
