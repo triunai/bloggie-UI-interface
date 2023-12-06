@@ -32,7 +32,7 @@ export class EditCategoryComponent implements OnInit,OnDestroy{
   onFormSubmit(){
     const updateModel = {
       name: this.category?.name ?? '',
-      urlHandle: this.category?.name ??''
+      urlHandle: this.category?.urlHandle ??''
     };
 
     // transform this object using service

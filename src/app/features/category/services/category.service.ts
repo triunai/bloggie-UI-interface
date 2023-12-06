@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Categories } from '../models/categories.model';
 import { environment } from 'src/environments/environment.development';
 import { UpdateCategoryRequest } from 'src/app/features/category/models/update-category-request.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,19 @@ import { UpdateCategoryRequest } from 'src/app/features/category/models/update-c
 export class CategoryService {
   constructor(
     private http: HttpClient,
+    private cookieService: CookieService
   ) { }
 
   //must return this type to insert anyway
    addCategory(model: AddCategoryRequest): Observable<void> {
 
     //writing post here is important, and ensure the method is also post
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/categories`, model);
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/categories`, model,
+    {
+      headers: {
+        'Authorization': this.cookieService.get('Authorization')
+      }
+    });
   }
 
   //modified this to handle Async Pipes
@@ -34,17 +41,32 @@ export class CategoryService {
   }
 
   getCategoriesById(id: string): Observable<Categories>{
-    return this.http.get<Categories>(`${environment.apiBaseUrl}/api/categories/${id}`);
+    return this.http.get<Categories>(`${environment.apiBaseUrl}/api/categories/${id}`,
+    {
+      headers: {
+        'Authorization': this.cookieService.get('Authorization')
+      }
+    });
   }
 
   // implementation for update method
 
   updateCategory(model: UpdateCategoryRequest, id: string): Observable<Categories>{
-    return this.http.put<Categories>(`${environment.apiBaseUrl}/api/categories/${id}`, model);
+    return this.http.put<Categories>(`${environment.apiBaseUrl}/api/categories/${id}`, model,
+    {
+      headers: {
+        'Authorization': this.cookieService.get('Authorization')
+      }
+    });
   }
 
   deleteCategory(id: string): Observable<Categories>{
-    return this.http.delete<Categories>(`${environment.apiBaseUrl}/api/categories/${id}`);
+    return this.http.delete<Categories>(`${environment.apiBaseUrl}/api/categories/${id}`,
+    {
+      headers: {
+        'Authorization': this.cookieService.get('Authorization')
+      }
+    });
   }
 
 }
