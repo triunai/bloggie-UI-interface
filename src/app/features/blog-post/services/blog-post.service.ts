@@ -18,7 +18,7 @@ export class BlogPostService {
 
   createBlogPost(model: AddBlogPostModel): Observable<BlogPost>{
     //  this works because its returning an observable type and the method is defining an observable anyway
-    return this.http.post<BlogPost>(`${environment.apiBaseUrl}/api/blogpost`, model);
+    return this.http.post<BlogPost>(`${environment.apiBaseUrl}/api/blogpost?addAuth=true`, model);
   }
 
   // use ur logic, why in the hell would a getAll method not return an array of the datatype of the apiResponse
@@ -40,11 +40,11 @@ export class BlogPostService {
   }
 
   updateBlogpostById(model: UpdateBlogPostModel, id: string): Observable<BlogPost>{
-    return this.http.put<BlogPost>(`${environment.apiBaseUrl}/api/blogpost/${id}`, model);
+    return this.http.put<BlogPost>(`${environment.apiBaseUrl}/api/blogpost/${id}?addAuth=true`, model);
   }
 
   deleteBlogpost(id: string): Observable<BlogPost>{
-    return this.http.delete<BlogPost>(`${environment.apiBaseUrl}/api/blogpost/${id}`)
+    return this.http.delete<BlogPost>(`${environment.apiBaseUrl}/api/blogpost/${id}?addAuth=true`)
   }
 
   getBlogpostsByUrl(urlHandle: string):Observable<BlogPost>{

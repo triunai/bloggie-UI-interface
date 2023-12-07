@@ -16,18 +16,9 @@ export class CategoryService {
     private cookieService: CookieService
   ) { }
 
-  //must return this type to insert anyway
-   addCategory(model: AddCategoryRequest): Observable<void> {
-
-    //writing post here is important, and ensure the method is also post
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/categories`, model,
-    {
-      headers: {
-        'Authorization': this.cookieService.get('Authorization')
-      }
-    });
+  getCategoriesById(id: string): Observable<Categories>{
+    return this.http.get<Categories>(`${environment.apiBaseUrl}/api/categories/${id}`,);
   }
-
   //modified this to handle Async Pipes
   getAllCategories(): Observable<Categories[]> {
     return this.http.get<Categories[]>(`${environment.apiBaseUrl}/api/categories`)
@@ -40,33 +31,22 @@ export class CategoryService {
       );
   }
 
-  getCategoriesById(id: string): Observable<Categories>{
-    return this.http.get<Categories>(`${environment.apiBaseUrl}/api/categories/${id}`,
-    {
-      headers: {
-        'Authorization': this.cookieService.get('Authorization')
-      }
-    });
+
+  //must return this type to insert anyway
+  addCategory(model: AddCategoryRequest): Observable<void> {
+
+    //writing post here is important, and ensure the method is also post
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/categories?addAuth=true`, model,);
   }
 
   // implementation for update method
 
   updateCategory(model: UpdateCategoryRequest, id: string): Observable<Categories>{
-    return this.http.put<Categories>(`${environment.apiBaseUrl}/api/categories/${id}`, model,
-    {
-      headers: {
-        'Authorization': this.cookieService.get('Authorization')
-      }
-    });
+    return this.http.put<Categories>(`${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`, model);
   }
 
   deleteCategory(id: string): Observable<Categories>{
-    return this.http.delete<Categories>(`${environment.apiBaseUrl}/api/categories/${id}`,
-    {
-      headers: {
-        'Authorization': this.cookieService.get('Authorization')
-      }
-    });
+    return this.http.delete<Categories>(`${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`);
   }
 
 }
