@@ -30,15 +30,11 @@ export class AuthService {
   // will receive user object, or user roles
 
   setUser(user: User): void{
-
-
-
     this.$user.next(user); // updates the user behaviour subject with new user details
 
     // takes a key value pair
     localStorage.setItem('user-email', user.email);
     localStorage.setItem('user-roles', user.roles.join(','));
-
   }
 
   // if any part of our app calls this user method from the service, it gets the latest values of the user
